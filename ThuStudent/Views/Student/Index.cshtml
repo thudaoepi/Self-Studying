@@ -1,0 +1,60 @@
+﻿@using ThuStudent.Models
+@model IEnumerable<ThuStudent.Models.Student>
+
+@{
+    ViewData["Title"] = "List of students";
+    
+}
+<h1>List of Student</h1>
+<p>Number of students: @Model.Count()</p>
+<p>
+    @Html.ActionLink("Create new student", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Student ID
+            </th>
+            <th>
+                Student Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (@Model.Count() > 0)
+        {
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @item.Phone
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |                
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>
+                </tr>            
+            }
+        }
+        else
+        {
+            <tr><td colspan="4">There isn't any student.</td></tr>            
+        }
+    </tbody>
+</table>
