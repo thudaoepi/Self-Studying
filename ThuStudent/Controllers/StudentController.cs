@@ -25,17 +25,34 @@ namespace ThuStudent.Controllers
 
         public IActionResult Edit(int id)
         {
-            //Student student = new Student();
             var student = students.Find(delegate (Student student) { return student.Id == id; });
+            if (student == null)
+            {
+                return NotFound();
+            }
             return View(student);            
         }
         [HttpPost]
         public IActionResult Edit(Student updatedStudent)
         {
-            //Student oldStudent = new Student();
             var oldStudent = students.Find(s => s.Id == updatedStudent.Id);
+            if (oldStudent == null)
+            {
+                return NotFound();
+            }
             students.Remove(oldStudent);
             students.Add(updatedStudent);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var student = students.Find(delegate (Student student) { return student.Id == id; });
+            if (student == null)
+            {
+                return NotFound();
+            }
+            students.Remove(student);
             return RedirectToAction("Index");
         }
     }
